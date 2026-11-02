@@ -16,7 +16,7 @@ export default function App() {
           <div className="bg-blue-900 text-white p-2 rounded-lg font-bold">Master</div>
         </div>
         {/* Groupe droite de la navbar : Liens de navigation et avatar */}
-        <nav className="flex items-center space-x-6 text-sm font-medium text-gray-600">
+        <nav className="flex items-center space-x-6 text-sm font-medium text-black">
           {/* Lien vers la page profil */}
           <span className="cursor-pointer hover:text-blue-600">Mon profil</span>
           {/* Lien actif vers la page diagnostic */}
@@ -34,21 +34,21 @@ export default function App() {
         {/* 2. Fil d'ariane / Étapes : Indique la progression dans le parcours utilisateur */}
         <div className="flex items-center space-x-4 mb-8 text-sm">
           {/* Première étape validée : Profil */}
-          <div className="flex items-center space-x-2 text-gray-400">
+          <div className="flex items-center space-x-2 text-gray-600">
             {/* Pastille avec une coche pour signifier que l'étape est passée */}
             <span className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs">✓</span>
             <span>Profil</span>
           </div>
           {/* Séparateur visuel */}
-          <span className="text-gray-300">›</span>
+          <span className="text-gray-600">›</span>
           {/* Deuxième étape validée : Master visé */}
-          <div className="flex items-center space-x-2 text-gray-400">
+          <div className="flex items-center space-x-2 text-gray-600">
             {/* Pastille avec une coche */}
             <span className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs">✓</span>
             <span>Master visé</span>
           </div>
           {/* Séparateur visuel */}
-          <span className="text-gray-300">›</span>
+          <span className="text-gray-600">›</span>
           {/* Troisième étape en cours : Résultats */}
           <div className="flex items-center space-x-2 text-blue-600 font-semibold">
             {/* Pastille bleue numérotée 3 */}
@@ -71,25 +71,25 @@ export default function App() {
             {/* Compteurs de prérequis (validés, en cours, lacunes) */}
             <div className="flex space-x-6 text-sm">
               {/* Indicateur vert des prérequis validés */}
-              <span className="text-emerald-600 font-medium">● 3 prérequis validés</span>
+              <div className='bg-emerald-100 p-2 rounded-full'><span className="text-emerald-400 font-medium">● 3 prérequis validés</span></div>
               {/* Indicateur orange des prérequis en cours */}
-              <span className="text-amber-500 font-medium">● 1 en cours</span>
+              <div className='bg-amber-100 p-2 rounded-full'><span className="text-amber-400 font-medium">● 1 en cours</span></div>
               {/* Indicateur rouge des lacunes */}
-              <span className="text-rose-500 font-medium">● 2 lacunes</span>
+              <div className='bg-rose-200 p-2 rounded-full'><span className="text-rose-400 font-medium">● 2 lacunes</span></div>
             </div>
           </div>
 
           {/* Jauge circulaire : Visualisation du pourcentage de correspondance */}
-          <div className="flex flex-col items-center justify-center bg-blue-50/50 p-4 rounded-2xl border border-blue-100">
+          <div>
             {/* Cercle contenant le score */}
-            <div className="w-20 h-20 rounded-full border-4 border-blue-600 flex flex-col items-center justify-center text-blue-900 font-bold">
+            <div className="w-35 h-35 rounded-full border-4 border-blue-600 flex flex-col items-center justify-center text-blue-900 font-bold">
               {/* Texte "Match :" */}
               <span className="text-xs text-gray-500 font-normal">Match :</span>
               {/* Valeur du pourcentage */}
               <span className="text-xl">72 %</span>
             </div>
             {/* Légende explicative sous la jauge */}
-            <span className="text-xs text-gray-500 mt-2">Prérequis pondérés estimation</span>
+            <span className="text-xs text-gray-500 mt-5">Prérequis pondérés estimation</span>
           </div>
         </div>
 
@@ -110,19 +110,21 @@ export default function App() {
             </div>
 
             {/* Zone interactive réservée au graphe */}
-            <div className="border border-dashed border-gray-200 rounded-xl p-6 min-h-[450px] flex items-center justify-center bg-gray-50/50 relative">
+            <div className="border border-dashed border-gray-200 rounded-xl p-6 min-h-112.5 flex items-center justify-center bg-gray-50/50 relative">
               {/* Texte indicatif temporaire */}
               <span className="text-gray-400 text-sm">[ Zone d'intégration de Cytoscape.js ]</span>
               
               {/* Exemple de carte UE validée (Vert) positionnée dans le graphe */}
-              <div className="absolute top-8 left-8 bg-white border-l-4 border-emerald-500 p-4 rounded-lg shadow-sm w-64 text-xs">
+              <div className="absolute top-8 left-8 bg-emerald-100 border-l-4 border-emerald-500 p-4 rounded-lg shadow-sm w-64 text-xs">
                 {/* Nom de l'UE */}
                 <p className="font-bold text-gray-800">Algorithme et programmation</p>
+
                 {/* Informations de semestre, ECTS et note */}
                 <p className="text-gray-500">S1 - 6 ECTS - 15/20</p>
                 {/* Statut de validation de la compétence */}
                 <span className="text-emerald-600 font-semibold mt-1 block">✓ Python - acquis</span>
               </div>
+              
             </div>
           </div>
 
