@@ -1,0 +1,35 @@
+# CapMaster — PostgreSQL du cote Licence.
+#
+# Le mot de passe n'est pas ecrit ici. Avant le premier demarrage :
+#   export POSTGRES_PASSWORD='...'
+# Facultatif :
+#   POSTGRES_USER  (defaut : capmaster)
+#   POSTGRES_DB    (defaut : capmaster)
+#   POSTGRES_PORT  (defaut : 5433, pour ne pas entrer en conflit avec un PostgreSQL deja present sur 5432)
+#
+# schema.sql est execute uniquement au premier demarrage, quand le volume est vide.
+# seed_exemple.sql n'est pas lance automatiquement : les lignes sont fictives.
+
+name: capmaster
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-capmaster}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Definir POSTGRES_PASSWORD dans l'environnement, sans l'ecrire dans ce fichier}
+      POSTGRES_DB: ${POSTGRES_DB:-capmaster}
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - capmaster_pgdata:/var/lib/postgresql/data
+      - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  capmaster_pgdata:
