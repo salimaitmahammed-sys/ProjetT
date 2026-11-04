@@ -1,3 +1,4 @@
+import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Link } from "react-router-dom"
 import Stepper from "../components/Stepper"
 import { useProfil } from "../state/ProfilContext"
@@ -18,15 +19,15 @@ export default function DiagnosticPage() {
   const couvertes = lignes.length - lacunes.length
 
   return (
-    <section>
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
       <Stepper etape={4} />
 
-      <div className="bg-white rounded-3xl shadow-sm border border-white p-6 sm:p-8 mb-5 flex flex-wrap items-center justify-between gap-8">
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 sm:p-8 flex flex-wrap items-center justify-between gap-8">
         <div className="max-w-xl">
           <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400 font-semibold">
             Votre diagnostic · {parcours.nom}
           </p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mt-2">Diagnostic pour {master.nom}</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">Diagnostic pour {master.nom}</h1>
           <p className="text-slate-500 mt-3">
             {lacunes.length === 0
               ? "Les compétences exigées sont couvertes par le profil."
@@ -44,7 +45,7 @@ export default function DiagnosticPage() {
           </div>
         </div>
         <div className="flex flex-col items-center">
-          <div className="w-32 h-32 rounded-full border-[6px] border-[#2563eb] flex flex-col items-center justify-center">
+          <div className="w-32 h-32 rounded-full border-[6px] border-[#1e3a8a] flex flex-col items-center justify-center">
             <span className="text-[11px] text-slate-400">Match :</span>
             <span className="text-3xl font-bold leading-none mt-1">{match === null ? "—" : `${match} %`}</span>
           </div>
@@ -53,13 +54,13 @@ export default function DiagnosticPage() {
       </div>
 
       <div className="grid lg:grid-cols-[minmax(0,1fr)_320px] gap-5 items-start">
-        <div className="bg-white rounded-3xl shadow-sm p-6">
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
           <div className="flex flex-wrap items-start justify-between gap-3 mb-5">
             <div>
               <h2 className="font-semibold text-lg">Votre carte des prérequis</h2>
               <p className="text-sm text-slate-500 mt-1">Les UE cochées qui portent chaque compétence exigée.</p>
             </div>
-            <span className="rounded-full bg-blue-50 text-[#2563eb] text-xs font-medium px-3 py-1">
+            <span className="rounded-full bg-blue-50 text-[#1e3a8a] text-xs font-medium px-3 py-1 border border-blue-100">
               {lignes.length} prérequis analysé{lignes.length > 1 ? "s" : ""}
             </span>
           </div>
@@ -92,7 +93,7 @@ export default function DiagnosticPage() {
         </div>
 
         <aside className="space-y-5">
-          <div className="bg-white rounded-3xl shadow-sm p-5">
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-semibold">Lacunes identifiées</h2>
               <span className="w-6 h-6 rounded-full bg-rose-100 text-rose-600 text-xs font-semibold flex items-center justify-center">
@@ -117,7 +118,7 @@ export default function DiagnosticPage() {
       </div>
 
       {dossier.length > 0 && (
-        <div className="mt-5 bg-white rounded-3xl shadow-sm p-6">
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
           <h2 className="font-semibold">Critères de dossier</h2>
           <p className="text-sm text-slate-500 mt-1 mb-3">Ces phrases ne modifient pas le Match%.</p>
           <ul className="space-y-2 text-sm text-slate-700">
@@ -128,11 +129,22 @@ export default function DiagnosticPage() {
         </div>
       )}
 
-      <div className="mt-6 flex justify-end">
-        <Link to="/comparer" className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-[#1e3a8a]">
-          Comparer les masters
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-gray-200">
+        <Link
+          to="/masters"
+          className="bg-white border border-gray-300 text-gray-700 hover:bg-slate-100 px-6 py-3.5 rounded-xl font-semibold inline-flex items-center space-x-2 transition"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Précédent</span>
+        </Link>
+        <Link
+          to="/comparer"
+          className="bg-[#1e3a8a] hover:bg-blue-800 text-white px-8 py-3.5 rounded-xl font-semibold inline-flex items-center space-x-3 shadow-sm"
+        >
+          <span>Comparer les masters</span>
+          <ArrowRight className="w-5 h-5" />
         </Link>
       </div>
-    </section>
+    </main>
   )
 }

@@ -5,12 +5,12 @@ export default function ComparerPage() {
   const { evaluations, setMasterId } = useProfil()
 
   return (
-    <section>
-      <h1 className="text-3xl font-bold mb-2">Comparer les masters</h1>
-      <p className="text-slate-600 mb-6">Même profil, compétences exigées différentes.</p>
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+      <h1 className="text-3xl font-extrabold text-slate-900">Comparer les masters</h1>
+      <p className="text-gray-500 text-sm">Même profil, compétences exigées différentes.</p>
       <div className="grid gap-4 md:hidden">
         {evaluations.map((item) => (
-          <article key={item.master.id} className="bg-white rounded-2xl shadow-sm p-4">
+          <article key={item.master.id} className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
             <p className="font-semibold">{item.master.nom}</p>
             <p className="text-sm text-slate-500">{item.master.etablissement}</p>
             <p className="text-2xl font-bold text-[#1e3a8a] mt-2">{item.match === null ? "—" : `${item.match} %`}</p>
@@ -33,7 +33,7 @@ export default function ComparerPage() {
           </article>
         ))}
       </div>
-      <div className="hidden md:block overflow-x-auto bg-white rounded-3xl shadow-sm">
+      <div className="hidden md:block overflow-x-auto bg-white rounded-2xl border border-gray-200 shadow-sm">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-slate-200 text-left">
@@ -81,6 +81,6 @@ export default function ComparerPage() {
           </tbody>
         </table>
       </div>
-    </section>
+    </main>
   )
 }

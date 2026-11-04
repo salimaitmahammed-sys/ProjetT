@@ -9,29 +9,33 @@ const etapes = [
 
 export default function Stepper({ etape }) {
   return (
-    <ol className="flex flex-wrap items-center gap-2 text-sm mb-6">
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold">
       {etapes.map((item, index) => {
         const courant = item.n === etape
         const passe = item.n < etape
         return (
-          <li key={item.n} className="flex items-center gap-2">
-            {index > 0 && <span className="text-slate-300">›</span>}
+          <span key={item.n} className="flex items-center gap-4">
+            {index > 0 && <span className="text-gray-300">&gt;</span>}
             <Link
               to={item.to}
-              className={`flex items-center gap-2 ${courant ? "text-[#2563eb] font-semibold" : passe ? "text-slate-600" : "text-slate-400"}`}
+              className={`flex items-center space-x-2 ${courant ? "text-[#1e3a8a]" : passe ? "text-gray-500" : "text-gray-400"}`}
             >
               <span
-                className={`w-6 h-6 rounded-full text-xs flex items-center justify-center ${
-                  courant ? "bg-[#2563eb] text-white" : passe ? "bg-blue-100 text-[#2563eb]" : "bg-white text-slate-400 border border-slate-200"
+                className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
+                  courant
+                    ? "bg-[#1e3a8a] text-white"
+                    : passe
+                      ? "bg-emerald-600 text-white"
+                      : "bg-gray-200 text-gray-600"
                 }`}
               >
                 {passe ? "✓" : item.n}
               </span>
-              {item.label}
+              <span className={courant ? "font-bold" : ""}>{item.label}</span>
             </Link>
-          </li>
+          </span>
         )
       })}
-    </ol>
+    </div>
   )
 }
