@@ -1,7 +1,3 @@
--- EXEMPLE FICTIF, à remplacer par les vraies données.
--- Aucune UE, competence officielle ou source reelle n'est decrite ici.
--- A executer une fois, sur une base vide, apres schema.sql.
-
 BEGIN;
 
 INSERT INTO source (type, reference, date_consultation, notes)
@@ -22,25 +18,22 @@ VALUES
   ('ECONOMETRIE', 'Économétrie', 'maths_stats', 'Modele lineaire applique a des donnees economiques.'),
   ('ALGORITHMIQUE', 'Algorithmique', 'developpement', 'Complexite, structures de donnees et algorithmes de base.');
 
--- source_id pointe vers l'unique source fictive inseree ci-dessus.
-INSERT INTO ue (code, nom, semestre, ects, obligatoire, annee_maquette, source_id)
-SELECT v.code, v.nom, v.semestre, v.ects, v.obligatoire, v.annee_maquette, s.id
+INSERT INTO ue (code, nom, semestre, obligatoire, annee_maquette, source_id)
+SELECT v.code, v.nom, v.semestre, v.obligatoire, v.annee_maquette, s.id
 FROM source AS s
 CROSS JOIN (
   VALUES
-    ('INF-S1-PROG'::TEXT, 'Introduction à la programmation'::TEXT, 1::SMALLINT, 6.0::NUMERIC(3, 1), TRUE, '2026-2027'::TEXT),
-    ('MAT-S1-ALG', 'Algèbre linéaire', 1, 6.0, TRUE, '2026-2027'),
-    ('MAT-S2-PROBA', 'Probabilités', 2, 6.0, TRUE, '2026-2027'),
-    ('INF-S2-BDD', 'Bases de données SQL', 2, 3.0, TRUE, '2026-2027'),
-    -- Code officiel volontairement inconnu.
-    (NULL, 'Algorithmique', 2, 6.0, TRUE, '2026-2027'),
-    ('MAT-S3-STAT', 'Statistiques', 3, 6.0, TRUE, '2026-2027'),
-    ('ECO-S3-METR', 'Introduction à l''économétrie', 3, 6.0, TRUE, '2026-2027'),
-    ('LAN-S1-ANG', 'Anglais', 1, 3.0, FALSE, '2026-2027')
-) AS v (code, nom, semestre, ects, obligatoire, annee_maquette)
+    ('INF-S1-PROG'::TEXT, 'Introduction à la programmation'::TEXT, 1::SMALLINT, TRUE, '2026-2027'::TEXT),
+    ('MAT-S1-ALG', 'Algèbre linéaire', 1, TRUE, '2026-2027'),
+    ('MAT-S2-PROBA', 'Probabilités', 2, TRUE, '2026-2027'),
+    ('INF-S2-BDD', 'Bases de données SQL', 2, TRUE, '2026-2027'),
+    (NULL, 'Algorithmique', 2, TRUE, '2026-2027'),
+    ('MAT-S3-STAT', 'Statistiques', 3, TRUE, '2026-2027'),
+    ('ECO-S3-METR', 'Introduction à l''économétrie', 3, TRUE, '2026-2027'),
+    ('LAN-S1-ANG', 'Anglais', 1, FALSE, '2026-2027')
+) AS v (code, nom, semestre, obligatoire, annee_maquette)
 WHERE s.reference = 'Maquette fictive Licence MIASHS 2026-2027.pdf';
 
--- Anglais n'a pas de ligne ici : cette UE fictive ne developpe aucune competence du referentiel d'exemple.
 INSERT INTO ue_competence (ue_id, competence_id, niveau, confiance, source_id)
 SELECT u.id, c.id, v.niveau, v.confiance, s.id
 FROM (
@@ -62,7 +55,6 @@ JOIN competence AS c
 JOIN source AS s
   ON s.reference = 'Maquette fictive Licence MIASHS 2026-2027.pdf';
 
--- Estimations : la source peut etre absente.
 INSERT INTO ue_competence (ue_id, competence_id, niveau, confiance, source_id)
 SELECT u.id, c.id, v.niveau, 'estimation', NULL
 FROM (
